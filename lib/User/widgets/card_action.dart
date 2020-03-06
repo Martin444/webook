@@ -9,7 +9,7 @@ class CardAction extends StatelessWidget {
   CardAction(this.title, this.pathImage, this.rute);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return InkWell(
       child: Container(
       height: 90,

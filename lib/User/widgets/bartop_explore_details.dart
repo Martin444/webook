@@ -1,7 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:webook/User/Models/resturant.dart';
 
-class BarTopDetails extends StatelessWidget {
+class BarTopDetails extends StatefulWidget {
+  Restaurant restaurant;
+  bool favorite = false;
 
+  BarTopDetails(this.restaurant);
+
+  @override
+  _BarTopDetailsState createState() => _BarTopDetailsState();
+}
+
+class _BarTopDetailsState extends State<BarTopDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +34,6 @@ class BarTopDetails extends StatelessWidget {
                           Navigator.pop(context);
                         },
                     ),
-                  
           ),
 
           Container(
@@ -52,11 +62,29 @@ class BarTopDetails extends StatelessWidget {
                 ),
                     InkWell(
                         child: Icon(
-                                Icons.favorite_border,
+                                widget.favorite ? Icons.favorite : Icons.favorite_border,
                                 size: 28,
                                 color: Colors.white,
                                 ),
-                          onTap: (){
+                          onTap: () async {
+
+                            await Firestore.instance.collection('restaurants').document(widget.restaurant.restid).get()
+                            .then((DocumentSnapshot ds){
+                              int favorites = ds.data['favorites'];
+
+
+                              setState(() {
+                                widget.favorite = !widget.favorite;
+                              });
+                              
+                              Firestore.instance.collection('restaurants').document(widget.restaurant.restid)
+                              .updateData({
+                                'favorites' : favorites + 1
+                              });
+
+                              
+
+                            });
                             Scaffold.of(context).showSnackBar(
                               SnackBar(
                                 content: Text("Agregaste a tus favoritos"),

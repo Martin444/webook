@@ -20,7 +20,9 @@ class ExploreListFilter extends StatelessWidget {
           List<CardExplore> cards = new List<CardExplore>();
             List<HeroExplore> hero = new List<HeroExplore>();
           image.data.documents.forEach((f){
-            var restaurant = Restaurant(name: f['name'],
+            var restaurant = Restaurant(
+              restid: f.documentID,
+              name: f['name'],
               subname: f['subname'],
               description: f['description'],
               photoPortail: f['photoPortail'],
@@ -31,6 +33,7 @@ class ExploreListFilter extends StatelessWidget {
               delivery: f['delivery'],
               favorite: f['favorites']
             );
+              //print(f['name']);
               
               cards.add(CardExplore(restaurant));
               restaurant.favorite == 10 ?

@@ -6,9 +6,7 @@ import 'package:webook/User/widgets/hero.dart';
 import 'card_explorer.dart';
 
 class ExploreList extends StatelessWidget {
-  String _name;
-  String _subName;
-  String _description;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,9 @@ class ExploreList extends StatelessWidget {
           List<CardExplore> cards = new List<CardExplore>();
             List<HeroExplore> hero = new List<HeroExplore>();
           image.data.documents.forEach((f){
-            var restaurant = Restaurant(name: f['name'],
+            var restaurant = Restaurant(
+              restid: f.documentID,
+              name: f['name'],
               subname: f['subname'],
               description: f['description'],
               photoPortail: f['photoPortail'],

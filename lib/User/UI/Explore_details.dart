@@ -13,10 +13,9 @@ class ExploreDetails extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           ListView(
-            padding: EdgeInsets.only(bottom: 50.0),
+            padding: EdgeInsets.only(bottom: 100.0),
             children: <Widget>[
               Column(
-                
                 children: <Widget>[
                     BanerDetails(restaurant),
                     Container(
@@ -74,7 +73,7 @@ class ExploreDetails extends StatelessWidget {
               ),
             ],
           ),
-          BarTopDetails(),
+          BarTopDetails(restaurant),
           ReserveButtons(restaurant),
         ],
       ),
