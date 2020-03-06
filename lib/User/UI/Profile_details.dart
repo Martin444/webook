@@ -12,6 +12,7 @@ import 'Profile.dart';
 
 
 class ProfileDetails extends StatefulWidget {
+
   @override
   _ProfileDetailsState createState() => _ProfileDetailsState();
 }
@@ -62,7 +63,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                         children: <Widget>[
                           _backCover(),
                           _greetings(user),
-                          _bottomHolder(),
+                          _bottomHolder(user),
                         ],
 
                       ),
@@ -74,7 +75,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            _buildNotificationCard(),
+                            _buildNotificationCard(user),
                           //  _buildYourDriverDesigned(),
                           //  _buildYourDriverDesignedCard(),
                             _buildTourFavoritePlaces(),
@@ -163,7 +164,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
         );
   }
 
-    Positioned _bottomHolder(){
+    Positioned _bottomHolder(User user){
     return Positioned(
       left: 10,
       right: 10,
@@ -180,12 +181,12 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             blurRadius: 5.5,
           )]
         ),
-        child: MyActions(),
+        child: MyActions(user),
       ),
     );
   }
 
-    Container _buildNotificationCard(){
+    Container _buildNotificationCard(User user){
       return Container(
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
@@ -210,7 +211,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               Navigator.push(context,
                    MaterialPageRoute(
                       builder: (BuildContext context) =>
-                     ProfileUser()
+                     ProfileUser(user)
                   )
               );
             },

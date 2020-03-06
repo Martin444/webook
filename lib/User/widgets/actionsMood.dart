@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:webook/User/Models/user.dart';
 import 'package:webook/User/UI/Profile.dart';
 import 'package:webook/User/widgets/card_action.dart';
 import 'package:webook/User/widgets/explore_list_filter.dart';
 
 class MyActions extends StatefulWidget {
+  User user;
+  
+  MyActions(this.user);
   @override
   _MyActionsState createState() => _MyActionsState();
 }
@@ -45,7 +49,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
             Navigator.push(context,
                    MaterialPageRoute(
                       builder: (BuildContext context) =>
-                     ProfileUser()
+                     ProfileUser(widget.user)
                   )
               );
           }else if(index == 1 ){
@@ -174,7 +178,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                    Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Mexican")
+                                            new ExploreListFilter("Mexican", widget.user)
                                         )
                                     );
                                 }),
@@ -182,7 +186,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                    Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Sushi")
+                                            new ExploreListFilter("Sushi", widget.user)
                                         )
                                     );
                                 }),
@@ -190,7 +194,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                   Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Italiana")
+                                            new ExploreListFilter("Italiana", widget.user)
                                         )
                                     );
                                 })
@@ -203,7 +207,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                   Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Steakhouse")
+                                            new ExploreListFilter("Steakhouse", widget.user)
                                         )
                                     );
                                 }),
@@ -211,7 +215,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                   Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Seafood")
+                                            new ExploreListFilter("Seafood",widget.user)
                                         )
                                     );
                                 }),
@@ -219,7 +223,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                   Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Asiática")
+                                            new ExploreListFilter("Asiática", widget.user)
                                         )
                                     );
                                 })
@@ -232,7 +236,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                   Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Healthy")
+                                            new ExploreListFilter("Healthy", widget.user)
                                         )
                                     );
                                 }),
@@ -240,7 +244,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                   Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Americana")
+                                            new ExploreListFilter("Americana", widget.user)
                                         )
                                     );
                                 }),
@@ -248,7 +252,7 @@ List<bool> isSeled = List.generate(3, (_) => false);
                                   Navigator.push(context,
                                         new MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                            new ExploreListFilter("Argentina")
+                                            new ExploreListFilter("Argentina",widget.user)
                                         )
                                     );
                                 })

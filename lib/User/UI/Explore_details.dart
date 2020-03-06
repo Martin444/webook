@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:webook/User/Models/resturant.dart';
+import 'package:webook/User/Models/user.dart';
 import 'package:webook/User/widgets/baner_explore_details.dart';
 import 'package:webook/User/widgets/bartop_explore_details.dart';
 import 'package:webook/User/widgets/reserve_buttons.dart';
 
 class ExploreDetails extends StatelessWidget {
   Restaurant restaurant;
-  ExploreDetails(this.restaurant);
+  User user;
+  ExploreDetails(this.restaurant, this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +75,7 @@ class ExploreDetails extends StatelessWidget {
               ),
             ],
           ),
-          BarTopDetails(restaurant),
+          BarTopDetails(restaurant, user),
           ReserveButtons(restaurant),
         ],
       ),

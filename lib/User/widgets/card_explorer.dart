@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:webook/User/Models/resturant.dart';
+import 'package:webook/User/Models/user.dart';
 import 'package:webook/User/UI/Explore_details.dart';
 
 class CardExplore extends StatefulWidget {
   Restaurant restaurant;
-  CardExplore(this.restaurant);
+  User user;
+  CardExplore(this.restaurant, this.user);
 
   @override
   _CardExploreState createState() => _CardExploreState();
@@ -71,7 +73,7 @@ class _CardExploreState extends State<CardExplore> {
         Navigator.push(context,
               new MaterialPageRoute(
                   builder: (BuildContext context) =>
-                  new ExploreDetails(widget.restaurant)
+                  new ExploreDetails(widget.restaurant, widget.user)
               )
           );
       },

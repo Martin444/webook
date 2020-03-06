@@ -1,12 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:webook/User/Models/resturant.dart';
+import 'package:webook/User/Models/user.dart';
 import 'package:webook/User/UI/Explore_details.dart';
 
 class HeroExplore extends StatefulWidget {
   Restaurant restaurant;
+  User user;
 
-  HeroExplore(this.restaurant);
+  HeroExplore(this.restaurant, this.user);
   @override
   _HeroExploreState createState() => _HeroExploreState();
 }
@@ -73,7 +75,7 @@ class _HeroExploreState extends State<HeroExplore> {
         Navigator.push(context,
               new MaterialPageRoute(
                   builder: (BuildContext context) =>
-                  new ExploreDetails(widget.restaurant)
+                  new ExploreDetails(widget.restaurant, widget.user)
               )
           );
       },

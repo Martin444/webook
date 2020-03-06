@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:webook/User/Models/resturant.dart';
+import 'package:webook/User/Models/user.dart';
 import 'package:webook/User/widgets/hero.dart';
 
 import 'card_explorer.dart';
 
 class ExploreListFilter extends StatelessWidget {
   String category;
+  User user;
 
-  ExploreListFilter(this.category);
+  ExploreListFilter(this.category, this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +37,9 @@ class ExploreListFilter extends StatelessWidget {
             );
               //print(f['name']);
               
-              cards.add(CardExplore(restaurant));
+              cards.add(CardExplore(restaurant, user));
               restaurant.favorite == 10 ?
-              hero.add(HeroExplore(restaurant))
+              hero.add(HeroExplore(restaurant, user))
               : null;
             });
             

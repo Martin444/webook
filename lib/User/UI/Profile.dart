@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:webook/User/Models/user.dart';
 import 'package:webook/User/widgets/background.dart';
 import 'package:webook/User/widgets/bar_top.dart';
 import 'package:webook/User/widgets/explore_list.dart';
 import 'package:webook/User/widgets/hero.dart';
 
 class ProfileUser extends StatefulWidget {
+  User user;
+
+  ProfileUser(this.user);
   @override
   _ProfileUserState createState() => _ProfileUserState();
 }
@@ -22,7 +26,7 @@ class _ProfileUserState extends State<ProfileUser> {
                     children: <Widget>[
                       Stack(
                         children: <Widget>[
-                          ExploreList(),
+                          ExploreList(widget.user),
                         ],
                       ),
                     ],

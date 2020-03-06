@@ -87,11 +87,7 @@ class Login extends StatelessWidget {
                         ),
                       ),
                       onPressed: (){
-                        Navigator.push(context,
-                            new MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                new ProfileDetails()
-                            ));
+                      
                       },
                     ),
                   )
