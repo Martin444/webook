@@ -242,7 +242,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              "Your designed driver",
+              "My Reservations",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -266,6 +266,8 @@ class _ProfileDetailsState extends State<ProfileDetails> {
               
               child: Column(
                 children: <Widget>[
+                  _buildYourDriverDesigned(),
+                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

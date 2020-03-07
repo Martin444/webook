@@ -1,11 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:webook/User/Models/resturant.dart';
+import 'package:webook/User/Models/user.dart';
 import 'package:webook/Widgets/button_blue.dart';
+import 'package:intl/intl.dart';
 
-class ReserveButtons extends StatelessWidget {
+class ReserveButtons extends StatefulWidget {
   Restaurant restaurant;
+  User user;
+  
 
-  ReserveButtons(this.restaurant);
+  ReserveButtons(this.restaurant,this.user);
+
+  @override
+  _ReserveButtonsState createState() => _ReserveButtonsState();
+}
+
+class _ReserveButtonsState extends State<ReserveButtons> {
+
+  DateTime selectDate = DateTime.now();
+  TimeOfDay selectedHours = TimeOfDay.now();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,49 +44,86 @@ class ReserveButtons extends StatelessWidget {
             child: ButtonBlue(
             width: 130,
             height: 50, 
-          onPressed: (){
+          onPressed: ()async{
+            var selectedeDate = await createAlertDialog(context);
+            if(selectedeDate == null) return;
+            var selectedtimer = await selectedTimer(context); 
+            if(selectedtimer == null) return;
 
-              Scaffold.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text("Reservado"),
-                                      )
-                                    );
-          }, text: "Reservar",),
-          ),
+            setState(() {
+              this.selectDate = DateTime(
+                selectedeDate.year,
+                selectedeDate.month,
+                selectedeDate.day,
+                selectedtimer.hour,
+                selectedtimer.minute
+              ).add(Duration(seconds: 23));
+            });
 
-          restaurant.delivery ? 
-          Container(
-            height: 48,
-            width: 60,
-            margin: EdgeInsets.only(top: 12,bottom: 8),
-            child: FlatButton(
-              color: Colors.black12,
-              child: Icon(Icons.time_to_leave),
-              onPressed: (){
-                 
-              },
+            print(selectDate);
+           await Firestore.instance.collection('reservations').add({
+              'date' : selectDate,
+              'userOwner' : Firestore.instance.document('users/${widget.user.uid}'),
+              'commerce' : Firestore.instance.document('restaurants/${widget.restaurant.restid}')
+            }).whenComplete((){
+               Scaffold.of(context).showSnackBar(
+                SnackBar(
+                content: Text('Reservado'),
+            ));
+            });
+            
+            }, text: "Reservar",),
             ),
-          )
-          : SizedBox(height: 30),
-
-          Container(
-            height: 48,
-            width: 60,
-            margin: EdgeInsets.only(top: 12,bottom: 8, left: 16),
-            child: FlatButton(
-              child: Icon(Icons.location_on),
-              color: Colors.black12,
-              onPressed: (){
-                      Scaffold.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Buscando"),
-                              )
-                            );
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
+            
+                      widget.restaurant.delivery ? 
+                      Container(
+                        height: 48,
+                        width: 60,
+                        margin: EdgeInsets.only(top: 12,bottom: 8),
+                        child: FlatButton(
+                          color: Colors.black12,
+                          child: Icon(Icons.time_to_leave),
+                          onPressed: (){
+                             
+                          },
+                        ),
+                      )
+                      : SizedBox(height: 30),
+            
+                      Container(
+                        height: 48,
+                        width: 60,
+                        margin: EdgeInsets.only(top: 12,bottom: 8, left: 16),
+                        child: FlatButton(
+                          child: Icon(Icons.location_on),
+                          color: Colors.black12,
+                          onPressed: (){
+                                  Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text("Buscando"),
+                                          )
+                                        );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
 }
+            
+          Future<TimeOfDay> selectedTimer(BuildContext context){
+            final now = DateTime.now();
+              return showTimePicker(context: context, 
+              initialTime: TimeOfDay(hour: now.hour, minute: now.minute)
+              );
+          }
+           Future<DateTime>  createAlertDialog(BuildContext context) {
+               var now = DateTime.now();
+              return showDatePicker(
+                context: context,
+                initialDate: now,
+                firstDate: now,
+                lastDate: DateTime(2030)
+              );
+          }

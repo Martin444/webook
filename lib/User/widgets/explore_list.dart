@@ -36,7 +36,7 @@ class ExploreList extends StatelessWidget {
             );
               
               cards.add(CardExplore(restaurant, user));
-              restaurant.favorite == 10 ?
+              restaurant.favorite >= 10 ?
               hero.add(HeroExplore(restaurant, user))
               : null;
             });

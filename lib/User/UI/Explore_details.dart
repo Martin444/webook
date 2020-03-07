@@ -76,7 +76,7 @@ class ExploreDetails extends StatelessWidget {
             ],
           ),
           BarTopDetails(restaurant, user),
-          ReserveButtons(restaurant),
+          ReserveButtons(restaurant, user),
         ],
       ),
     );
