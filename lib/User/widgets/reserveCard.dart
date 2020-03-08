@@ -29,7 +29,7 @@ class ReserveCard extends StatelessWidget {
                       CircleAvatar(
                         backgroundColor: Colors.grey,
                         backgroundImage: NetworkImage(reservation.commercePhoto),
-                        radius: 10,
+                        radius: 36,
                       ),
                       SizedBox(width: 12.0,),
                       RichText(text: TextSpan(

@@ -63,7 +63,7 @@ class _ReserveButtonsState extends State<ReserveButtons> {
             print(selectDate);
            await Firestore.instance.collection('reservations').add({
               'date' : selectDate,
-              'userOwner' : Firestore.instance.document('users/${widget.user.uid}'),
+              'userOwner' : '${widget.user.uid}',
               'commerce' : Firestore.instance.document('restaurants/${widget.restaurant.restid}'),
               'nameUser' : widget.user.name,
               'commerceName' : widget.restaurant.name,

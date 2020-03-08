@@ -171,7 +171,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
   }
 
     Positioned _bottomHolder(User user){
-    
+
     return Positioned(
       left: 10,
       right: 10,
@@ -196,6 +196,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
     );
   }
 
+ 
    _buildNotificationCard(User user){
       return JelloIn(
         delay: Duration(milliseconds: 2000),
@@ -282,6 +283,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
 
                 reserva.data.documents.forEach((f){
                   var datos = Reservation(
+                    reserID: f.documentID,
                     commerce: f['commerce'].toString(),
                     commerceName: f['commerceName'],
                     commercePhoto: f['commercePhoto'],
@@ -289,6 +291,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                     nameUser: f['nameUser'],
                     date: f['date'],
                     );
+                    print(datos.reserID);
                     reserv.add(ReserveCard(datos));
                 });
 
