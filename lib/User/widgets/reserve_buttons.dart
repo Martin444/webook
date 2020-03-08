@@ -64,7 +64,10 @@ class _ReserveButtonsState extends State<ReserveButtons> {
            await Firestore.instance.collection('reservations').add({
               'date' : selectDate,
               'userOwner' : Firestore.instance.document('users/${widget.user.uid}'),
-              'commerce' : Firestore.instance.document('restaurants/${widget.restaurant.restid}')
+              'commerce' : Firestore.instance.document('restaurants/${widget.restaurant.restid}'),
+              'nameUser' : widget.user.name,
+              'commerceName' : widget.restaurant.name,
+              'commercePhoto' : widget.restaurant.photoPortail
             }).whenComplete((){
                Scaffold.of(context).showSnackBar(
                 SnackBar(

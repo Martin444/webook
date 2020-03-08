@@ -1,10 +1,13 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:webook/User/Models/reservation.dart';
 import 'package:webook/User/Models/user.dart';
 import 'package:webook/User/UI/utils.dart';
 import 'package:webook/User/widgets/actionsMood.dart';
+import 'package:webook/User/widgets/reserveCard.dart';
 import 'package:webook/Widgets/button_custom.dart';
 
 import 'Explore_details.dart';
@@ -76,8 +79,8 @@ class _ProfileDetailsState extends State<ProfileDetails> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             _buildNotificationCard(user),
-                          //  _buildYourDriverDesigned(),
-                          //  _buildYourDriverDesignedCard(),
+                            _buildYourDriverDesigned(),
+                            _buildYourDriverDesignedCard(user),
                             _buildTourFavoritePlaces(),
                             CarouselSlider(
                               height: 300.0,
@@ -137,173 +140,179 @@ class _ProfileDetailsState extends State<ProfileDetails> {
         return Positioned(
           left: 20,
           bottom: 80,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Hi ${user.name}',
-                style: TextStyle(
-                  fontSize: 36,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  
+          child: JelloIn(
+            delay: Duration(milliseconds: 500),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Hi ${user.name}',
+                  style: TextStyle(
+                    fontSize: 36,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    
+                  ),
                 ),
-              ),
-              SizedBox(height: 6.0,),
-              Text(
-                'How are you feeling today ?',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w300,
-                ),
-              )
-            ],
+                SizedBox(height: 6.0,),
+                Text(
+                  'How are you feeling today ?',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w300,
+                  ),
+                )
+              ],
+            ),
           ),
         );
   }
 
     Positioned _bottomHolder(User user){
+    
     return Positioned(
       left: 10,
       right: 10,
       top: 200,
 
-      child: Container(
-        height: 100,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          boxShadow: [BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 5.5,
-            blurRadius: 5.5,
-          )]
+      child: JelloIn(
+        delay: Duration(milliseconds: 1000),
+        child: Container(
+          height: 100,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            boxShadow: [BoxShadow(
+              color: Colors.black12,
+              spreadRadius: 5.5,
+              blurRadius: 5.5,
+            )]
+          ),
+          child: MyActions(user),
         ),
-        child: MyActions(user),
       ),
     );
   }
 
-    Container _buildNotificationCard(User user){
-      return Container(
-        padding: EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
-          color: lightC,
-          borderRadius: BorderRadius.circular(20)
-        ),
-        child: ListTile(
-          leading: Icon(
-            Icons.calendar_today,
-            color: Colors.white,
-            size: 32,
+   _buildNotificationCard(User user){
+      return JelloIn(
+        delay: Duration(milliseconds: 2000),
+        child: Container(
+          padding: EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            color: lightC,
+            borderRadius: BorderRadius.circular(20)
           ),
-          title: Text("Do not miss the opportunity to book a hotel",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Colors.white
-          ),
-          ),
-          trailing: OutlineButton(
-            onPressed: (){
-              Navigator.push(context,
-                   MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                     ProfileUser(user)
-                  )
-              );
-            },
-            color: Colors.transparent,
-            borderSide: BorderSide(
+          child: ListTile(
+            leading: Icon(
+              Icons.calendar_today,
               color: Colors.white,
-              width: 1.0
+              size: 32,
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(26)
+            title: Text("Do not miss the opportunity to book a hotel",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.white
             ),
-            child: Text("Booking",
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white
+            ),
+            trailing: OutlineButton(
+              onPressed: (){
+                Navigator.push(context,
+                     MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                       ProfileUser(user)
+                    )
+                );
+              },
+              color: Colors.transparent,
+              borderSide: BorderSide(
+                color: Colors.white,
+                width: 1.0
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(26)
+              ),
+              child: Text("Booking",
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white
+                  ),
                 ),
               ),
-            ),
+          ),
         ),
       );
     }
   
-    Container _buildYourDriverDesigned(){
-      return Container(
-        margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              "My Reservations",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87
-              ),
-              )
-          ],
+     _buildYourDriverDesigned(){
+      return JelloIn(
+        delay: Duration(milliseconds: 3000),
+        child: Container(
+          margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                "My Reservations",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87
+                ),
+                )
+            ],
+          ),
         ),
       );
     }
 
-    _buildYourDriverDesignedCard() {
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 18.0),
-            alignment: Alignment.topCenter,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-            ),
-            child: Center(
-              
-              child: Column(
-                children: <Widget>[
-                  _buildYourDriverDesigned(),
-                  
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        child: Row(children: <Widget>[
-                          CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        backgroundImage: NetworkImage("https://microhealth.com/assets/images/illustrations/personal-user-illustration-@2x.png"),
-                        radius: 36,
-                      ),
-                      SizedBox(width: 12.0,),
-                      RichText(
-                        text: TextSpan(
-                        text: 'John Colon',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black,
-                          height: 2.5,
-                        ),
-                      ),
-                      ),
-                        ],),
-                      ),
-                      ButtonCustom(
-                        text: "Go",
-                        height: 40,
-                        width: 80,
-                        onPressed: (){},
-                        )
+    _buildYourDriverDesignedCard(User user) {
+          return StreamBuilder(
+            stream: Firestore.instance.collection('reservations').where('userOwner', isEqualTo: '${user.uid}').snapshots(),
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if(snapshot.hasData){
+                AsyncSnapshot reserva = snapshot;
+                    print(reserva);
+                
+                List<ReserveCard> reserv = new List<ReserveCard>();
 
-                    ],
-                  )
-                ],
-              ),
-            ),
+                reserva.data.documents.forEach((f){
+                  var datos = Reservation(
+                    commerce: f['commerce'].toString(),
+                    commerceName: f['commerceName'],
+                    commercePhoto: f['commercePhoto'],
+                    userOwner: f['userOwner'],
+                    nameUser: f['nameUser'],
+                    date: f['date'],
+                    );
+                    reserv.add(ReserveCard(datos));
+                });
+
+              return JelloIn(
+                delay: Duration(milliseconds: 3000),
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Center(
+                    
+                    child: Column(
+                      children: reserv,
+                    ),
+                  ),
+                ),
+              );
+           
+              }else{
+                return _buildNotificationCard(user);
+              }
+            }
           );
 }
 
